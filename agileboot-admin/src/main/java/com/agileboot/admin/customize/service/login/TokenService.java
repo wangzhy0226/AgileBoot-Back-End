@@ -69,7 +69,7 @@ public class TokenService {
                 Claims claims = parseToken(token);
                 // 解析对应的权限以及用户信息
                 String uuid = (String) claims.get(Token.LOGIN_USER_KEY);
-
+                // WHY 不知道这里为何只从缓存取数据，为什么取不到的时候，不去 redis 看一下有没有数据。
                 return redisCache.loginUserCache.getObjectOnlyInCacheById(uuid);
             } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException jwtException) {
                 log.error("parse token failed.", jwtException);

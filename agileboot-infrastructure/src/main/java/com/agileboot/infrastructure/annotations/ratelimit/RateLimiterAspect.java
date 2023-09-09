@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Slf4j
+// 配置文件中，agileboot.embedded.redis 的值是不为 true。
 @ConditionalOnExpression("'${agileboot.embedded.redis}' != 'true'")
 @RequiredArgsConstructor
 public class RateLimiterAspect {

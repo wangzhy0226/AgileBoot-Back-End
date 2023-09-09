@@ -41,6 +41,7 @@ public class MapCache {
 
     private static void initDictionaryCache() {
         // TODO 这个可以做成自动扫描
+        // 主要是读取代码中写死的枚举类型的配置项。
         loadInCache(BusinessTypeEnum.values());
         loadInCache(YesOrNoEnum.values());
         loadInCache(StatusEnum.values());

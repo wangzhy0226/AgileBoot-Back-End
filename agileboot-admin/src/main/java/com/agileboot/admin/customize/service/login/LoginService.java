@@ -10,8 +10,14 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.extra.servlet.ServletUtil;
+import com.agileboot.admin.customize.async.AsyncTaskFactory;
+import com.agileboot.admin.customize.service.login.command.LoginCommand;
+import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
+import com.agileboot.admin.customize.service.login.dto.ConfigDTO;
 import com.agileboot.common.config.AgileBootConfig;
 import com.agileboot.common.constant.Constants.Captcha;
+import com.agileboot.common.enums.common.ConfigKeyEnum;
+import com.agileboot.common.enums.common.LoginStatusEnum;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
 import com.agileboot.common.exception.error.ErrorCode.Business;
@@ -20,18 +26,10 @@ import com.agileboot.common.utils.i18n.MessageUtils;
 import com.agileboot.domain.common.cache.GuavaCacheService;
 import com.agileboot.domain.common.cache.MapCache;
 import com.agileboot.domain.common.cache.RedisCacheService;
-import com.agileboot.admin.customize.async.AsyncTaskFactory;
-import com.agileboot.infrastructure.thread.ThreadPoolManager;
-import com.agileboot.admin.customize.service.login.dto.CaptchaDTO;
-import com.agileboot.admin.customize.service.login.dto.ConfigDTO;
-import com.agileboot.admin.customize.service.login.command.LoginCommand;
-import com.agileboot.infrastructure.user.web.SystemLoginUser;
-import com.agileboot.common.enums.common.ConfigKeyEnum;
-import com.agileboot.common.enums.common.LoginStatusEnum;
 import com.agileboot.domain.system.user.db.SysUserEntity;
+import com.agileboot.infrastructure.thread.ThreadPoolManager;
+import com.agileboot.infrastructure.user.web.SystemLoginUser;
 import com.google.code.kaptcha.Producer;
-import java.awt.image.BufferedImage;
-import javax.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,6 +40,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FastByteArrayOutputStream;
+
+import javax.annotation.Resource;
+import java.awt.image.BufferedImage;
 
 /**
  * 登录校验方法
@@ -112,7 +113,7 @@ public class LoginService {
      */
     public ConfigDTO getConfig() {
         ConfigDTO configDTO = new ConfigDTO();
-
+        // 查询是否开启验证码功能。
         boolean isCaptchaOn = isCaptchaOn();
         configDTO.setIsCaptchaOn(isCaptchaOn);
         configDTO.setDictionary(MapCache.dictionaryCache());
@@ -214,7 +215,11 @@ public class LoginService {
 
         return StrUtil.str(decryptBytes, CharsetUtil.CHARSET_UTF_8);
     }
-
+    
+    /**
+     * 是否开启验证码
+     * @return
+     */
     private boolean isCaptchaOn() {
         return Convert.toBool(guavaCache.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
     }

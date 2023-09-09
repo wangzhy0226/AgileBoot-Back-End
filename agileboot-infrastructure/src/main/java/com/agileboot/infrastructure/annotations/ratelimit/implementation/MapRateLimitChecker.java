@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
+ * 限流检查器的 map 方式实现类
  * @author valarchie
  */
 @SuppressWarnings("UnstableApiUsage")
@@ -27,7 +28,7 @@ public class MapRateLimitChecker extends AbstractRateLimitChecker{
     @Override
     public void check(RateLimit rateLimit) {
         String combinedKey = rateLimit.limitType().generateCombinedKey(rateLimit);
-
+        // 获取缓存中的对象，不存在就新建。
         RateLimiter rateLimiter = cache.get(combinedKey,
             () -> RateLimiter.create((double) rateLimit.maxCount() / rateLimit.time())
         );

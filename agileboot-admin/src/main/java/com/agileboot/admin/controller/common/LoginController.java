@@ -53,6 +53,7 @@ public class LoginController {
      */
     @Operation(summary = "首页")
     @GetMapping("/")
+    // 限流
     @RateLimit(key = RateLimitKey.TEST_KEY, time = 10, maxCount = 5, cacheType = CacheType.Map,
         limitType = LimitType.GLOBAL)
     public String index() {

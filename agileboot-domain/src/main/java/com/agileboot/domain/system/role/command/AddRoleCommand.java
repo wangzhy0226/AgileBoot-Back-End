@@ -33,7 +33,8 @@ public class AddRoleCommand {
      * 角色排序
      */
     @ExcelColumn(name = "角色排序")
-    @NotBlank(message = "显示顺序不能为空")
+//    @NotBlank(message = "显示顺序不能为空") // @NotBlank 一般用于字符串
+    @NotNull(message = "显示顺序不能为空") // @NotNull 一般用户非字符串对象
     private Integer roleSort;
 
 

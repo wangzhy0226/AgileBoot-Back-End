@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
 /**
+ * 限流检查器的 redis 方式实现类
  * @author valarchie
  */
 @Component

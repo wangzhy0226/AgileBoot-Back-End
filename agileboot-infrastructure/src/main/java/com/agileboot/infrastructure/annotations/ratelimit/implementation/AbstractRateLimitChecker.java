@@ -3,6 +3,7 @@ package com.agileboot.infrastructure.annotations.ratelimit.implementation;
 import com.agileboot.infrastructure.annotations.ratelimit.RateLimit;
 
 /**
+ * 接口限流检查器者抽象类
  * @author valarchie
  */
 public abstract class AbstractRateLimitChecker {
