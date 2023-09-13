@@ -18,11 +18,12 @@ import java.lang.reflect.Method;
  *
  * @author valarchie
  */
-@Aspect
+@Aspect // 表明这个类是一个切面类，通常与 @Component 一起使用。
 @Component
 @Slf4j
 // 配置文件中，agileboot.embedded.redis 的值是不为 true。
 @ConditionalOnExpression("'${agileboot.embedded.redis}' != 'true'")
+// lombok 注解，与 final 成员变量一起可以使用 spring 的自动注入，不需要在成员变量上加 @Autowired 注解。
 @RequiredArgsConstructor
 public class RateLimiterAspect {
 
@@ -30,8 +31,7 @@ public class RateLimiterAspect {
 
     private final MapRateLimitChecker mapRateLimitChecker;
 
-
-    // 拦截有@RateLimit 注解的方法
+    // 拦截有 @RateLimit 注解的方法
     @Before("@annotation(rateLimiter)")
     public void doBefore(JoinPoint point, RateLimit rateLimiter) {
         MethodSignature signature = (MethodSignature) point.getSignature();

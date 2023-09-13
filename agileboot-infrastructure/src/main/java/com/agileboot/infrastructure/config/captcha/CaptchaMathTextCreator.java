@@ -70,6 +70,14 @@ public class CaptchaMathTextCreator extends DefaultTextCreator {
                 }
             }
         };
+
+        /**
+         * 生成一个表达式
+         * @param x 操作数1
+         * @param y 操作数2
+         * @param expression 表达式
+         * @return 结果
+         */
         public abstract int generateMathExpression(int x, int y, StringBuilder expression);
     }
 }
