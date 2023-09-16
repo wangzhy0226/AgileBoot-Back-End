@@ -221,6 +221,8 @@ public class LoginService {
      * @return
      */
     private boolean isCaptchaOn() {
+        // 从数据库 sys_config 表中查询  sys.account.captchaOnOff 的配置
+        // select * from sys_config where  config_key = 'sys.account.captchaOnOff'
         return Convert.toBool(guavaCache.configCache.get(ConfigKeyEnum.CAPTCHA.getValue()));
     }
 
