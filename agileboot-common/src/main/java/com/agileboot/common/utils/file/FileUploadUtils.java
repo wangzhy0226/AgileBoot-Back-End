@@ -205,12 +205,16 @@ public class FileUploadUtils {
     /**
      * 下载文件名重新编码
      *
+     * 文件名格式：System.currentTimeMillis() + "_" + fileName; comment by wangzhy 2023.9.17
+     *
      * @param fileName 真实文件名
      */
     public static HttpHeaders getDownloadHeader(String fileName) {
         String randomFileName = System.currentTimeMillis() + "_" + fileName;
+        // 文件名可能包含中文，如果不编码的话，前台下载时会乱码。 comment by wangzhy 2023.9.17
         String fileNameUrlEncoded = URLUtil.encode(randomFileName, CharsetUtil.CHARSET_UTF_8);
         HttpHeaders headers = new HttpHeaders();
+        // 设置下载文件的名称 comment by wangzhy 2023.9.17
         headers.set("Content-Disposition", String.format("attachment;filename=%s", fileNameUrlEncoded));
         return headers;
     }
