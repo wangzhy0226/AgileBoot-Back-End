@@ -70,8 +70,8 @@ public class SysPostController extends BaseController {
     @PreAuthorize("@permission.has('system:post:export')")
     @GetMapping("/excel")
     public void export(HttpServletResponse response, PostQuery query) {
-        PageDTO<PostDTO> pageDTO = postApplicationService.getPostList(query);
-        CustomExcelUtil.writeToResponse(pageDTO.getRows(), PostDTO.class, response);
+        List<PostDTO> all = postApplicationService.getPostListAll(query);
+        CustomExcelUtil.writeToResponse(all, PostDTO.class, response);
     }
 
     /**
