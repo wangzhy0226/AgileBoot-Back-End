@@ -115,9 +115,9 @@ public class SysPostController extends BaseController {
     @Operation(summary = "删除职位")
     @PreAuthorize("@permission.has('system:post:remove')")
     @AccessLog(title = "岗位管理", businessType = BusinessTypeEnum.DELETE)
-    @DeleteMapping("/{postIds}")
-    public ResponseDTO<Void> remove(@PathVariable List<Long> postIds) {
-        postApplicationService.deletePost(new BulkOperationCommand<>(postIds));
+    @DeleteMapping
+    public ResponseDTO<Void> remove(@RequestParam @NotNull @NotEmpty List<Long> ids) {
+        postApplicationService.deletePost(new BulkOperationCommand<>(ids));
         return ResponseDTO.ok();
     }
 
