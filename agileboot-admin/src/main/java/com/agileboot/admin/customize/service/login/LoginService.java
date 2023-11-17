@@ -215,7 +215,7 @@ public class LoginService {
 
         return StrUtil.str(decryptBytes, CharsetUtil.CHARSET_UTF_8);
     }
-    
+
     /**
      * 是否开启验证码
      * @return

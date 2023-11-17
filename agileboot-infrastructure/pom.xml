@@ -54,32 +54,11 @@
             <artifactId>oshi-core</artifactId>
         </dependency>
 
-        <!--
-        报错信息：
-            Redis command timed out; nested exception is io.lettuce.core.RedisCommandTimeoutException:
-            Command timed out after 10 second(s)
-        解决方法：
-            不使用 io.lettuce 包，改为 jedis
-        参考文档：
-           1. https://www.cnblogs.com/zhujiqian/p/14552873.html
-           2. https://gitee.com/y_project/RuoYi-Vue/issues/I1O294
-        -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>5.0.0</version>
-        </dependency>
 
         <!-- 通用模块-->
         <dependency>
             <groupId>com.agileboot</groupId>
             <artifactId>agileboot-common</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>lettuce-core</artifactId>
-                    <groupId>io.lettuce</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
 
